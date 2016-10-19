@@ -3,12 +3,16 @@ var path = require('path');
 module.exports = [{
     name: "production",
     entry: {
+        common: "./src/common.js",
+        common2: "./src/common2.js",
         user: "./src/user.js",
-        welcome:"./src/welcome.js"
+        index:"./src/index.js",
+        auth:"./src/auth.js"
     },
     output: {
-        path: __dirname,
-        filename: "./build/[name].bundle.min.js"
+        path: 'build/',
+        publicPath: "build/",
+        filename: "[name].bundle.min.js"
     },
     plugins: [
         new webpack.optimize.UglifyJsPlugin({
@@ -27,10 +31,10 @@ module.exports = [{
         }, {
             test: /\.(png)$/,
             // inline base64 URLs for <=8k images, direct URLs for the rest
-            loader: 'url-loader?name=images/[name].[ext]'
+            loader: 'url-loader?name=images/[name].[ext]&limit=8192'
         }, {
             test: /\.jpg$/,
-            loader: "file-loader?name=images/[name].[ext]"
+            loader: "file-loader?name=images/[name].[ext]&limit=8192"
         }]
     }
 }]

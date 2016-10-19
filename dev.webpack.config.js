@@ -3,12 +3,16 @@ var path = require('path');
 module.exports = [{
     name: "develop",
     entry: {
+        common: "./src/common.js",
+        common2: "./src/common2.js",
         user: "./src/user.js",
-        welcome:"./src/welcome.js"
+        index:"./src/index.js",
+        auth:"./src/auth.js"
     },
     output: {
-        path: __dirname,
-        filename: "./build/[name].bundle.js"
+        path: 'build/',
+        publicPath: "build/",
+        filename: "[name].bundle.js"
     },
     module: {
         //提取css
