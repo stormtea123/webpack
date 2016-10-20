@@ -1,7 +1,7 @@
 var webpack = require('webpack');
 var path = require('path');
 module.exports = [{
-    name: "develop",
+    name: "production",
     entry: {
         common: "./src/common.js",
         common2: "./src/common2.js",
@@ -9,14 +9,25 @@ module.exports = [{
         index:"./src/index.js",
         auth:"./src/auth.js"
     },
+    //devtool: "#inline-source-map",
     output: {
         path: 'build/',
         publicPath: "build/",
-        filename: "[name].bundle.js"
+        filename: "[name].bundle.min.js",
+        chunkFilename: "[name].ensure.min.js"//给require.ensure用
     },
+    plugins: [
+        // new webpack.optimize.UglifyJsPlugin({
+        //     compress: {
+        //         warnings: false
+        //     }
+        // })
+    ],
     module: {
-        //提取css
         loaders: [{
+            test: /\.json$/,
+            loader: "json"
+        },{
             test: /\.html$/,
             loader: "html"
         },{
@@ -25,7 +36,10 @@ module.exports = [{
         }, {
             test: /\.(png)$/,
             // inline base64 URLs for <=8k images, direct URLs for the rest
-            loader: 'url-loader?name=images/[name].[ext]'
-        }, {test: /\.jpg$/, loader: "file-loader?name=images/[name].[ext]"}]
+            loader: 'url-loader?name=images/[name].[ext]&limit=8192'
+        }, {
+            test: /\.jpg$/,
+            loader: "file-loader?name=images/[name].[ext]&limit=8192"
+        }]
     }
 }]
