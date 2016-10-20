@@ -13,8 +13,8 @@ module.exports = [{
     output: {
         path: 'build/',
         publicPath: "build/",
-        filename: "[name].bundle.min.js",
-        chunkFilename: "[name].ensure.min.js"//给require.ensure用
+        filename: "[name].bundle.js",
+        chunkFilename: "[name].chunk.js"//给require.ensure用
     },
     plugins: [
         // new webpack.optimize.UglifyJsPlugin({
