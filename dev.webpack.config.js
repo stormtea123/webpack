@@ -14,7 +14,7 @@ module.exports = [{
         path: 'build/',
         publicPath: "build/",
         filename: "[name].bundle.js",
-        chunkFilename: "[name].chunk.js"//给require.ensure用
+        chunkFilename: "[name].chunk.js?ver=[chunkhash]"//给require.ensure用
     },
     plugins: [
         // new webpack.optimize.UglifyJsPlugin({
