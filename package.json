@@ -4,6 +4,8 @@
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server --progress --colors",
+    "hot": "webpack-dev-server --progress --colors --inline --hot",
     "dev": "webpack --config dev.webpack.config.js --watch --progress --colors",
     "sprite": "webpack --config spirte.webpack.config.js --watch --progress --colors",
     "build": "webpack --config build.webpack.config.js --watch --progress --colors",
@@ -24,6 +26,9 @@
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
     "webpack": "^2.1.0-beta",
-    "webpack-spritesmith": "^0.2.6"
+    "webpack-spritesmith": "^0.2.6",
+    // "open-browser-webpack-plugin": "0.0.2",
+    // "webpack-dev-server": "~1.10.1"
   }
+
 }

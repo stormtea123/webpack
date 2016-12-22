@@ -7,8 +7,11 @@ module.exports = [{
         common2: "./src/common2.js",
         user: "./src/user.js",
         index:"./src/index.js",
-        auth:"./src/auth.js"
+        auth:"./src/auth.js",
+        authBank:"./src/authBank.js",
+        query:"./src/query.js"
     },
+    //devtool: "#inline-source-map",
     output: {
         path: 'build/',
         publicPath: "build/",
@@ -18,7 +21,25 @@ module.exports = [{
     plugins: [
         new webpack.optimize.UglifyJsPlugin({
             compress: {
-                warnings: false
+                warnings: false,
+                drop_console: false,
+                drop_debugger: false,
+                screw_ie8 : false
+            },
+            comments: false,
+            mangle: {
+                // Don't mangle $
+                //except: ['$'],
+
+                // Don't care about IE8
+                screw_ie8 : false,
+                //support_ie8: true
+
+                // Don't mangle function names
+                //keep_fnames: true
+            },
+            output: {
+                screw_ie8 : false
             }
         })
     ],
