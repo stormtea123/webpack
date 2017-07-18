@@ -127,6 +127,15 @@ module.exports = {
                                             "Android >= 4",
                                             "iOS >= 7"
                                         ]
+                                    }),
+                                    require('postcss-pxtorem')({
+                                        rootValue: 100,
+                                        unitPrecision: 5,
+                                        propList: ["width", "height", "padding", "padding-top", "padding-right", "padding-bottom", "padding-left", "margin", "margin-top", "margin-right", "margin-bottom", "margin-left","border-radius","border","border-left","border-top","border-right","border-bottom","background-size","top","left","right","bottom","font-size","line-height","min-width","min-height","box-shadow"],
+                                        selectorBlackList: [],
+                                        replace: true,
+                                        mediaQuery: false,
+                                        minPixelValue: 2
                                     })
                                 ];
                             }
