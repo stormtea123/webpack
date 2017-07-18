@@ -18,6 +18,7 @@ module.exports = [{
         chunkFilename: "[name].chunk.min.js?ver=[chunkhash]"//给require.ensure用
     },
     plugins: [
+        new webpack.optimize.ModuleConcatenationPlugin(),
         new webpack.DefinePlugin({
             'process.env': {
                 'NODE_ENV': JSON.stringify('production')
