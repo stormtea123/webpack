@@ -27,10 +27,12 @@ module.exports = {
         publicPath: '/',
         noInfo: false,
         port: 3002,
+        host: '0.0.0.0',
         watchContentBase: true,
         proxy: {
             "/lts-plateform": {
-                target: "http://192.168.16.41:30001/"
+                target: "http://192.168.16.44:30001/"
+                //target: "http://dev.whaledata.cn/"
             }
         }
     },
@@ -68,6 +70,10 @@ module.exports = {
     ],
     module: {
         rules: [
+            { // Disable webpack-dev-server's auto-reload feature in the browser.
+                test: path.resolve(__dirname, 'node_modules/webpack-dev-server/client'),
+                loader: 'null-loader'
+            },
             {test: /\.jpg$/, use: ["file-loader?name=images/[name].[ext]"]},
             {test: /\.png$/, use: ["url-loader?name=images/[name].[ext]&limit=8192"]},
             {

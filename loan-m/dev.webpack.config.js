@@ -6,13 +6,16 @@ process.traceDeprecation = true;
 //var hotMiddlewareScript = 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true&noInfo=true';
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+const ResourceHintWebpackPlugin = require('resource-hints-webpack-plugin');
+
 module.exports = {
     name: "develop",
     entry: {
         common: "./src/common.js",
         index:"./src/index.js",
         app:"./src/app.js",
-        auth:"./src/auth.js"
+        auth:"./src/auth.js",
+        mine:"./src/mine.js"
     },
     //devtool: "#inline-source-map",
     output: {
@@ -34,12 +37,13 @@ module.exports = {
         disableHostCheck: true,
         proxy: {
             "/lts-plateform": {
-                target: "http://192.168.16.44:14040/"
+                target: "http://192.168.16.44:30001/"
+                //target: "http://192.168.16.66:30001/"
             }
         }
     },
     plugins: [
-        new webpack.optimize.ModuleConcatenationPlugin(),
+        //new webpack.optimize.ModuleConcatenationPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoEmitOnErrorsPlugin(),
         new ExtractTextPlugin('[name].css'),
@@ -48,7 +52,7 @@ module.exports = {
             template: './src/asset/index.html',
             favicon: './src/asset/favicon.ico',
             hash:true,
-            excludeChunks: ['app','auth'],
+            excludeChunks: ['app','auth','mine'],
             chunksSortMode:function (chunk1, chunk2) {
                 var orders = ['common', 'index'];
                 var order1 = orders.indexOf(chunk1.names[0]);
@@ -61,7 +65,7 @@ module.exports = {
             template: './src/asset/app.html',
             favicon: './src/asset/favicon.ico',
             hash:true,
-            excludeChunks: ['index','auth'],
+            excludeChunks: ['index','auth','mine'],
             chunksSortMode:function (chunk1, chunk2) {
                 var orders = ['common', 'app'];
                 var order1 = orders.indexOf(chunk1.names[0]);
@@ -75,9 +79,23 @@ module.exports = {
             template: './src/asset/auth.html',
             favicon: './src/asset/favicon.ico',
             hash:true,
-            excludeChunks: ['index','app'],
+            excludeChunks: ['index','app','mine'],
             chunksSortMode:function (chunk1, chunk2) {
                 var orders = ['common', 'auth'];
+                var order1 = orders.indexOf(chunk1.names[0]);
+                var order2 = orders.indexOf(chunk2.names[0]);
+
+                return order1 - order2;
+            }
+        }),
+        new HtmlWebpackPlugin({
+            filename: 'mine.html',
+            template: './src/asset/mine.html',
+            favicon: './src/asset/favicon.ico',
+            hash:true,
+            excludeChunks: ['index','app','auth'],
+            chunksSortMode:function (chunk1, chunk2) {
+                var orders = ['common', 'mine'];
                 var order1 = orders.indexOf(chunk1.names[0]);
                 var order2 = orders.indexOf(chunk2.names[0]);
 
@@ -90,7 +108,8 @@ module.exports = {
                 // this assumes your vendor imports exist in the node_modules directory
                 return module.context && module.context.indexOf('node_modules') !== -1;
             }
-        })
+        }),
+        // new ResourceHintWebpackPlugin()
     ],
     module: {
         rules: [
@@ -136,7 +155,7 @@ module.exports = {
                                         selectorBlackList: [],
                                         replace: true,
                                         mediaQuery: false,
-                                        minPixelValue: 2
+                                        minPixelValue: 5
                                     })
                                 ];
                             }
