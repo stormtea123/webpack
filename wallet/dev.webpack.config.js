@@ -37,7 +37,8 @@ module.exports = {
         disableHostCheck: true,
         proxy: {
             "/mili": {
-                target: "http://dev.whaledata.cn:81/",
+                //target: "http://dev.whaledata.cn:81/",
+                target: "http://10.200.150.5:4000/mili/",
                 //target: "http://192.168.16.22:40001/"
                 //target: "http://192.168.16.44:40001/"
                 //target: "http://10.200.150.5:4000/"
@@ -146,7 +147,7 @@ module.exports = {
                             plugins: function () {
                                 return [
                                     require('autoprefixer')({
-                                        broswers: [
+                                        browsers: [
                                             "Android >= 4",
                                             "iOS >= 7"
                                         ]
@@ -173,10 +174,7 @@ module.exports = {
             {
                 test: /\.js|jsx$/,
                 use: [{
-                    loader: 'babel-loader',
-                    options: {
-                        presets: ['es2015','react']
-                    }
+                    loader: 'babel-loader'
                 }]
 
             }

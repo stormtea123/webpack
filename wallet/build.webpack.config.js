@@ -163,7 +163,7 @@ module.exports = [{
                                 plugins: function () {
                                     return [
                                         require('autoprefixer')({
-                                            broswers: [
+                                            browsers: [
                                                 "Android >= 4",
                                                 "iOS >= 7"
                                             ]
@@ -187,10 +187,7 @@ module.exports = [{
             {
                 test: /\.js|jsx$/,
                 use: [{
-                    loader: 'babel-loader',
-                    options: {
-                        presets: ['es2015', 'react']
-                    }
+                    loader: 'babel-loader'
                 }]
 
             }
